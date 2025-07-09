@@ -1,0 +1,173 @@
+クラス名：app
+主担当者名：品川
+属性（変数）一覧：
+
+gameManager: GameManager — ゲームの状態や進行を管理するインスタンス
+
+メソッド一覧：
+
+setup() - 画面サイズなどの初期設定
+
+draw() - 画面の描写や更新処理
+
+mousePressed() - マウスクリックを処理
+
+メモ：Processing におけるメインスケッチファイル。複雑なロジックはすべてGameManager側に委譲し、最低限の処理だけをここに記述する。
+
+クラス名：GameManager
+主担当者名：品川
+属性（変数）一覧：
+
+currentStage: Stage — 現在のステージ
+
+lives: LifeManager — ライフ管理
+
+score: int — スコア（クリアステージ数）
+
+isGameOver: boolean — ゲーム終了フラグ
+
+メソッド一覧：
+
+startGame() — ゲーム初期化・開始処理
+
+endGame() — ゲーム終了処理
+
+goToNextStage() — 次のステージへ進む
+
+checkAnswer(imageId) — 回答の正誤判定処理
+
+メモ：
+全体の進行制御を担当。ライフやステージの管理を各マネージャと連携して行う。
+
+クラス名：Stage
+主担当者名：土田
+属性一覧：
+
+stageNumber: int — ステージ番号
+
+targetImage: ImageItem — 指定画像
+
+imageList: List<ImageItem> — 表示される画像一覧
+
+isMoving: boolean — 画像が動くかどうかのフラグ
+
+メソッド一覧：
+
+generateImages() — 画像リスト生成
+
+displayStage() — ステージの描画
+
+update() — 毎フレームの更新（動作付き画像など）
+
+メモ：
+ランダムまたはパターンで画像を配置・描画。移動有無も制御。
+
+クラス名：ImageItem
+主担当者名：土田
+属性一覧：
+
+imageId: int — 一意の画像ID
+
+img: PImage — 実際の画像データ
+
+x: float, y: float — 画像の表示位置
+
+vx: float, vy: float — 移動速度（動くステージのみ）
+
+メソッド一覧：
+
+display() — 画像表示
+
+update() — 移動処理（必要に応じて）
+
+メモ：
+クリックされた画像が正解かどうかは imageId で判定。
+
+クラス名：LifeManager
+主担当者名：明神
+属性一覧：
+
+lives: int — 残りライフ数（最大3）
+
+メソッド一覧：
+
+decreaseLife() — ライフを1減らす
+
+increaseLife() — ライフを1増やす（上限あり）
+
+isDead(): boolean — 残りライフが0かどうか判定
+
+メモ：
+ステージクリアで1回復、間違いで1減少。上限・下限を制御。
+
+クラス名：RankingManager
+主担当者名：明神
+属性一覧：
+
+rankingList: List<Pair<String, int>> — 名前とスコアのリスト
+
+メソッド一覧：
+
+loadRanking() — ランキングデータ読み込み
+
+saveRanking() — スコア更新と保存
+
+displayRanking() — ランキング表示
+
+メモ：
+ファイルまたはローカルストレージに保存。クリアステージ数を記録。
+
+クラス名：UIManager
+主担当者名：明神
+属性一覧：
+
+buttons: List<Button> — ボタン一覧
+
+currentScreen: String — 今の画面状態（例："home", "game", "result"）
+
+メソッド一覧：
+
+displayHome() — ホーム画面（ランキング・マニュアル・スタート）
+
+displayManual() — マニュアル画面
+
+displayResult() — 試合結果画面
+
+handleClick(x, y) — ボタンクリック判定
+
+メモ：
+各画面の遷移と表示制御を担当。
+
+クラス名：Timer
+主担当者名：品川
+属性一覧：
+
+startTime: int — ステージ開始時間
+
+duration: int — 制限時間（7秒）
+
+メソッド一覧：
+
+start() — タイマー開始
+
+isTimeUp(): boolean — 時間切れ判定
+
+getRemainingTime(): int — 残り時間の取得
+
+メモ：
+ステージごとに使われる。経過時間の監視。
+
+クラス名：InputHandler
+主担当者名：土田
+属性一覧：
+
+なし
+
+メソッド一覧：
+
+handleMouseClick(x, y) — マウスクリック時の処理
+
+checkClickedImage(x, y): ImageItem — クリックされた画像の判定
+
+メモ：
+UIManager や GameManager に正しく伝えるための窓口。
