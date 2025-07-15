@@ -76,4 +76,34 @@ void drawGameScreen() {
   textSize(32);
   text("TARGET!!", 1100, 520);
 
-  gm.currentStage.targetImage.dis
+  gm.currentStage.targetImage.display();
+
+  // 5. 画面下部に現在のスコア（クリアしたステージ数）表示
+  fill(255, 255, 0);
+  textSize(28);
+  textAlign(LEFT, CENTER);
+  text("クリアステージ数: " + gm.score, 20, height - 40);
+}
+
+// 画面切り替え用メソッド（例）
+void changeScreen(String screenName) {
+  currentScreen = screenName;
+
+  if (currentScreen.equals("game")) {
+    gm.startGame();
+    timer.start();
+  } else if (currentScreen.equals("result")) {
+    ranking.saveRanking(gm.score);
+    // 他、リザルト画面の初期化処理
+  } else if (currentScreen.equals("home")) {
+    // ホーム画面初期化処理
+  }
+}
+
+void mousePressed() {
+  if (currentScreen.equals("game")) {
+    input.handleMouseClick(mouseX, mouseY);
+  } else {
+    ui.handleClick(mouseX, mouseY);
+  }
+}
