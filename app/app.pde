@@ -109,7 +109,7 @@ void changeScreen(String screenName) {
 
 void mousePressed() {
   if (currentScreen.equals("game")) {
-    input.handleMouseClick(mouseX, mouseY, gm.currentStage);
+    input.handleClick(mouseX, mouseY, gm.currentStage);
   } else {
     ui.handleClick(mouseX, mouseY);
   }
