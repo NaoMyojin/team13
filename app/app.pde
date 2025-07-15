@@ -1,3 +1,10 @@
+GameManager gm;
+UIManager ui;
+InputHandler input;
+RankingManager ranking;
+Timer timer;
+String currentScreen;
+
 int screenWidth = 1200;
 int screenHeight = 700;
 
