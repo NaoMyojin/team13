@@ -1,12 +1,12 @@
 class UIManager {
   ArrayList<Button> buttons;
-  String currentScreen;
   GameManager gm;
+  PApplet appInstance; // app.pdeのインスタンスを受け取るための変数
 
-  UIManager(GameManager gm) {
+  UIManager(GameManager gm, PApplet appInstance) {
     this.gm = gm;
+    this.appInstance = appInstance; // インスタンスを保存
     buttons = new ArrayList<Button>();
-    currentScreen = "home";
     setupHomeButtons();
   }
 
