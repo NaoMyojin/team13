@@ -24,7 +24,7 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  background(150);
 
   if (currentScreen.equals("game")) {
     drawGameScreen();
@@ -71,6 +71,8 @@ void drawGameScreen() {
     text("❤", 60 + i * 30, 200);
   }
 
+  line(200, 100, 1000,100);
+
   fill(255, 255, 0);
   textSize(48);
   textAlign(CENTER, CENTER);
@@ -86,6 +88,8 @@ void drawGameScreen() {
   textSize(32);
   text("TARGET!!", 1100, 520);
   gm.currentStage.target.display();
+
+  line(1000, 0, 1000, 700);
 
   fill(255, 255, 0);
   textSize(28);

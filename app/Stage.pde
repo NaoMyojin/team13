@@ -38,7 +38,7 @@ class Stage {
     PImage img = loadImage(label + ".png");
     img.resize(64, 64);  //画像ファイルの読み込み、サイズ変更
     
-    float x = random(150, width - 250);
+    float x = random(200, width - 250);
     float y = random(100, height - 150);
     return new ImageItem(img, label, x, y, isMoving);
   }
