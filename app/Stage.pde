@@ -21,7 +21,7 @@ class Stage {
     items.add(target); // ステージ上にターゲットは1つだけ
 
     // 他のランダム画像を追加（ターゲット以外）
-    int totalItemCount = min(12 + stageNumber, 70); // 最大70個まで増やす
+    int totalItemCount = min(20 + stageNumber, 70); // 最大70個まで増やす
     
     while (items.size() < totalItemCount) {
       String l = labels[int(random(labels.length))];
