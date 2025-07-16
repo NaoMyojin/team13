@@ -6,7 +6,7 @@ Timer timer;
 String currentScreen;
 
 int screenWidth = 1200;
-int screenHeight = 700;
+int screenHeight = 600;
 
 void settings() {
   size(screenWidth, screenHeight);
@@ -55,7 +55,7 @@ void drawGameScreen() {
     return;
   }
 
-  fill(255);
+  fill(0);
   rect(0, 0, 200, height);
 
   fill(255, 255, 0);
@@ -81,12 +81,12 @@ void drawGameScreen() {
   gm.currentStage.update();
   gm.currentStage.display();
 
-  fill(255);
-  rect(1000, 500, 200, 180);
+  fill(0);
+  rect(1000, 0, 200, 700);
   fill(255, 255, 0);
   textAlign(CENTER, CENTER);
   textSize(32);
-  text("TARGET!!", 1100, 520);
+  text("TARGET!!", 1100, 420);
   gm.currentStage.target.display();
 
   line(1000, 0, 1000, 700);
