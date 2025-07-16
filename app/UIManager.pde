@@ -1,8 +1,10 @@
 class UIManager {
   ArrayList<Button> buttons;
   String currentScreen;
+  GameManager gm;
 
-  UIManager() {
+  UIManager(GameManager gm) {
+    this.gm = gm;
     buttons = new ArrayList<Button>();
     currentScreen = "home";
     setupHomeButtons();
@@ -53,7 +55,8 @@ class UIManager {
         if (b.isClicked(x, y)) {
           currentScreen = b.nextScreen;
           if (currentScreen.equals("game")) {
-            gameManager.startGame();  // 外部の GameManager 呼び出し
+            gm.startGame();
+            timer.start();  // タイマーも開始（必要に応じて）
           }
         }
       }

@@ -3,8 +3,10 @@ class GameManager {
   LifeManager lives;
   int score;
   boolean isGameOver;
+  RankingManager ranking;
 
-  GameManager() {
+  GameManager(RankingManager ranking) {
+    this.ranking = ranking;
     lives = new LifeManager();
     score = 0;
     isGameOver = false;
@@ -13,28 +15,26 @@ class GameManager {
   void startGame() {
     score = 0;
     isGameOver = false;
-    lives = new LifeManager();  // ライフ初期化
+    lives = new LifeManager();
     currentStage = new Stage(1);
-    currentStage.generateImages();
-    timer.start(); // タイマー開始
+    timer.start();
   }
 
   void endGame() {
     isGameOver = true;
     println("ゲームオーバー。スコア：" + score);
-    ranking.addScore("PLAYER", score); // スコア記録（仮に"PLAYER"）
+    ranking.saveRanking("PLAYER", score);
   }
 
   void goToNextStage() {
     score++;
     int nextStageNum = currentStage.stageNumber + 1;
     currentStage = new Stage(nextStageNum);
-    currentStage.generateImages();
-    timer.start(); // 次のステージでもタイマー再始動
+    timer.start();
   }
 
-  void checkAnswer(int imageId) {
-    if (currentStage.targetImage.imageId == imageId) {
+  void checkAnswer(String label) {
+    if (currentStage.target.label.equals(label)) {
       println("正解！");
       lives.increaseLife();
       goToNextStage();
@@ -43,7 +43,7 @@ class GameManager {
       lives.decreaseLife();
       if (lives.isDead()) {
         endGame();
-        changeScreen("result");
+        changeScreen("result"); // 呼び出せない → 呼び出し元（add.pde）で処理すべき
       }
     }
   }

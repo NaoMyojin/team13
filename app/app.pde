@@ -8,13 +8,16 @@ String currentScreen;
 int screenWidth = 1200;
 int screenHeight = 700;
 
-void setup() {
+void settings() {
   size(screenWidth, screenHeight);
+}
+
+void setup() {
   textFont(createFont("メイリオ", 24));
-  gm = new GameManager();
-  ui = new UIManager();
-  input = new InputHandler();
   ranking = new RankingManager();
+  gm = new GameManager(ranking);
+  ui = new UIManager(gm);
+  input = new InputHandler(gm);
   timer = new Timer();
   currentScreen = "game"; // テスト時用
   gm.startGame();
@@ -25,14 +28,20 @@ void draw() {
 
   if (currentScreen.equals("game")) {
     drawGameScreen();
+  } else if (currentScreen.equals("result")) {
+    ui.displayResult(gm.score);
+  } else if (currentScreen.equals("home")) {
+    ui.displayHome();
+  } else if (currentScreen.equals("manual")) {
+    ui.displayManual();
+  } else if (currentScreen.equals("ranking")) {
+    ranking.displayRanking(width / 2 - 100, 150);
   }
 }
 
 void drawGameScreen() {
-  // ゲームオーバー時は描画を停止
   if (gm.isGameOver) return;
 
-  // タイムオーバー処理
   if (timer.isTimeUp()) {
     println("時間切れ！");
     gm.lives.decreaseLife();
@@ -46,17 +55,14 @@ void drawGameScreen() {
     return;
   }
 
-  // 1. 情報パネル（左）
   fill(255);
   rect(0, 0, 200, height);
 
-  // タイマー
   fill(255, 255, 0);
   textAlign(CENTER, CENTER);
   textSize(32);
   text(nf(timer.getRemainingTime() / 1000.0, 1, 1) + "秒", 100, 50);
 
-  // ライフ
   textSize(24);
   fill(255, 255, 0);
   text("のこり", 100, 150);
@@ -65,34 +71,28 @@ void drawGameScreen() {
     text("❤", 60 + i * 30, 200);
   }
 
-  // 2. ステージタイトル
   fill(255, 255, 0);
   textSize(48);
   textAlign(CENTER, CENTER);
   text(gm.currentStage.stageNumber + "ステージ目", screenWidth / 2, 50);
 
-  // 3. 中央の画像表示
   gm.currentStage.update();
   gm.currentStage.display();
 
-  // 4. 右のTARGET表示
   fill(255);
-  rect(1000, 500, 200, 180);  // 枠
+  rect(1000, 500, 200, 180);
   fill(255, 255, 0);
   textAlign(CENTER, CENTER);
   textSize(32);
   text("TARGET!!", 1100, 520);
-
   gm.currentStage.target.display();
 
-  // 5. 画面下部に現在のスコア（クリアしたステージ数）表示
   fill(255, 255, 0);
   textSize(28);
   textAlign(LEFT, CENTER);
   text("クリアステージ数: " + gm.score, 20, height - 40);
 }
 
-// 画面切り替え用メソッド（例）
 void changeScreen(String screenName) {
   currentScreen = screenName;
 
@@ -101,9 +101,8 @@ void changeScreen(String screenName) {
     timer.start();
   } else if (currentScreen.equals("result")) {
     ranking.saveRanking("PLAYER", gm.score);
-    // 他、リザルト画面の初期化処理
   } else if (currentScreen.equals("home")) {
-    // ホーム画面初期化処理
+    ui.setupHomeButtons();
   }
 }
 

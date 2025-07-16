@@ -1,3 +1,6 @@
+ import java.util.Collections;
+import java.util.Comparator;
+
 class RankingManager {
   ArrayList<RankingEntry> rankingList;
   String rankingFile = "ranking.txt";
@@ -57,13 +60,16 @@ class RankingManager {
   }
 
   // スコア順に降順ソート
-  void sortRanking() {
-    rankingList.sort(new Comparator<RankingEntry>() {
-      int compare(RankingEntry a, RankingEntry b) {
-        return b.score - a.score;
-      }
-    });
-  }
+
+void sortRanking() {
+  Collections.sort(rankingList, new Comparator<RankingEntry>() {
+    @Override
+    public int compare(RankingEntry a, RankingEntry b) {
+      return b.score - a.score; // スコアの降順
+    }
+  });
+}
+
 
   // 内部用ランキングエントリクラス
   class RankingEntry {
