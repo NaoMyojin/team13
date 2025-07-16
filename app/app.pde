@@ -19,7 +19,7 @@ void setup() {
   ui = new UIManager(gm);
   input = new InputHandler(gm);
   timer = new Timer();
-  currentScreen = "game"; // テスト時用
+  currentScreen = "home"; // テスト時用
   gm.startGame();
 }
 

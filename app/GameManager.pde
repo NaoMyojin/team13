@@ -33,18 +33,20 @@ class GameManager {
     timer.start();
   }
 
-  void checkAnswer(String label) {
-    if (currentStage.target.label.equals(label)) {
-      println("正解！");
-      lives.increaseLife();
-      goToNextStage();
-    } else {
-      println("不正解！");
-      lives.decreaseLife();
-      if (lives.isDead()) {
-        endGame();
-        changeScreen("result"); // 呼び出せない → 呼び出し元（add.pde）で処理すべき
-      }
+ boolean checkAnswer(String label) {
+  if (currentStage.target.label.equals(label)) {
+    println("正解！");
+    lives.increaseLife();
+    goToNextStage();
+    return true;
+  } else {
+    println("不正解！");
+    lives.decreaseLife();
+    if (lives.isDead()) {
+      endGame();
+      return false; // ゲームオーバー
     }
+    return true;
   }
+ }
 }
