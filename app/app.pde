@@ -16,7 +16,7 @@ void setup() {
   textFont(createFont("メイリオ", 24));
   ranking = new RankingManager();
   gm = new GameManager(ranking);
-  ui = new UIManager(gm);
+  ui = new UIManager(gm, this);
   input = new InputHandler(gm);
   timer = new Timer();
   currentScreen = "home"; // テスト時用
