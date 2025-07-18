@@ -8,6 +8,9 @@ String currentScreen;
 int screenWidth = 1200;
 int screenHeight = 700;
 
+// 画像をラベル名で管理するマップ
+HashMap<String, PImage> imageMap;
+
 void settings() {
   size(screenWidth, screenHeight);
 }
@@ -15,6 +18,16 @@ void settings() {
 void setup() {
   textFont(createFont("メイリオ", 24));
   ranking = new RankingManager();
+
+  // 画像を一括読み込み
+  imageMap = new HashMap<String, PImage>();
+  String[] labels = {"carrot", "pumpkin", "greenpepper", "apple"};
+  for (String label : labels) {
+    PImage img = loadImage(label + ".png");
+    img.resize(64, 64);
+    imageMap.put(label, img);
+  }
+
   gm = new GameManager(ranking);
   ui = new UIManager(gm, this);
   input = new InputHandler(gm);
@@ -85,7 +98,7 @@ void drawGameScreen() {
   textAlign(CENTER, CENTER);
   textSize(32);
   text("TARGET!!", 1100, 520);
-  gm.currentStage.target.display();
+  gm.currentStage.target.displayAt(1100, 550);  // ← ここを修正
 
   fill(255, 255, 0);
   textSize(28);

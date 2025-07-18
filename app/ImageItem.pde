@@ -37,6 +37,10 @@ class ImageItem {
     image(img, x, y);
   }
 
+  void displayAt(float dx, float dy) {
+  　image(img, dx, dy);
+　}
+
   //クリックされたかどうか
   boolean isClicked(float mx, float my) {
     return mx >= x && mx <= x + img.width && my >= y && my <= y + img.height;
