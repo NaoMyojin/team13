@@ -38,7 +38,7 @@ class ImageItem {
   }
 
   void displayAt(float dx, float dy) {
-  　image(img, dx, dy);
+    image(img, dx, dy);
 　}
 
   //クリックされたかどうか
