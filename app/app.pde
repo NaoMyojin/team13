@@ -37,7 +37,7 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  background(155);//←色を変えた(7/22)
 
   if (currentScreen.equals("game")) {
     drawGameScreen();
@@ -69,7 +69,8 @@ void drawGameScreen() {
   }
 
   fill(255);
-  rect(0, 0, 200, height);
+  line(200, 0, 200, height);
+  //rect(0, 0, 200, height); この行を消しました7/22
 
   fill(255, 255, 0);
   textAlign(CENTER, CENTER);
@@ -83,6 +84,9 @@ void drawGameScreen() {
     fill(255, 0, 0);
     text("❤", 60 + i * 30, 200);
   }
+
+  fill(255);
+  line(200, 100, 1000, 100);//←ここを変えた7/22
 
   fill(255, 255, 0);
   textSize(48);
@@ -99,6 +103,9 @@ void drawGameScreen() {
   textSize(32);
   text("TARGET!!", 1100, 520);
   gm.currentStage.target.displayAt(1100, 550);  // ← ここを修正
+
+  fill(255);
+  line(1000, 0, 1000, 700); //←ここ2行を修正7/22
 
   fill(255, 255, 0);
   textSize(28);

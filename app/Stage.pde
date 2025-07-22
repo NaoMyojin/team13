@@ -21,7 +21,7 @@ class Stage {
     items.add(target); // ステージ上にターゲットは1つだけ
 
     // 他のランダム画像を追加（ターゲット以外）
-    int totalItemCount = min(12 + stageNumber, 70); // 最大70個まで増やす
+    int totalItemCount = min(20 + stageNumber, 100); // 最大100個まで増やす
     
     while (items.size() < totalItemCount) {
       String l = labels[int(random(labels.length))];
@@ -38,8 +38,8 @@ class Stage {
     PImage img = loadImage(label + ".png");
     img.resize(64, 64);  //画像ファイルの読み込み、サイズ変更
     
-    float x = random(150, width - 250);
-    float y = random(100, height - 150);
+    float x = random(250, width - 250);
+    float y = random(100, height - 150);//画像が出現する座標の設定を変更7/22
     return new ImageItem(img, label, x, y, isMoving);
   }
 

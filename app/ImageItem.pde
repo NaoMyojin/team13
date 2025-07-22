@@ -22,11 +22,11 @@ class ImageItem {
       x += vx;
       y += vy;
 
-      // 画面の端でバウンド
-      if (x < 0 || x + img.width > width) {
+      // 画面の端でバウンド　バウンドする座標を変えた7/22
+      if (x < 200 || x + img.width > width - 200) {
         vx *= -1;
       }
-      if (y < 0 || y + img.height > height){
+      if (y < 100 || y + img.height > height){
         vy *= -1;
       }
     }
