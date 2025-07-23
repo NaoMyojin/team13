@@ -49,6 +49,7 @@ void draw() {
     ui.displayManual();
   } else if (currentScreen.equals("ranking")) {
     ranking.displayRanking(width / 2 - 100, 150);
+    ui.displayRankingBackButton();
   }
 }
 
@@ -98,7 +99,7 @@ void drawGameScreen() {
 
   fill(255);
   rect(1000, 500, 200, 180);
-  fill(255, 255, 0);
+  fill(255, 0, 0);
   textAlign(CENTER, CENTER);
   textSize(32);
   text("TARGET!!", 1100, 520);
@@ -110,7 +111,7 @@ void drawGameScreen() {
   fill(255, 255, 0);
   textSize(28);
   textAlign(LEFT, CENTER);
-  text("クリアステージ数: " + gm.score, 20, height - 40);
+  text("クリアステージ数: " + gm.score, 20, height - 80);
 }
 
 void changeScreen(String screenName) {
