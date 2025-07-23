@@ -1,6 +1,7 @@
 class UIManager {
   ArrayList<Button> buttons;
   Button backButton;
+  Button resultBackButton;
   GameManager gm;
   PApplet appInstance;
 
@@ -9,6 +10,7 @@ class UIManager {
     this.appInstance = appInstance;
     buttons = new ArrayList<Button>();
     setupHomeButtons();
+    resultBackButton = new Button("ホームに戻る", appInstance.width / 2 - 75, 300, 150, 40, "home");
   }
 
   void setupHomeButtons() {
@@ -52,7 +54,7 @@ class UIManager {
     appInstance.textAlign(CENTER);
     appInstance.text("ゲーム終了！", appInstance.width / 2, 100);
     appInstance.text("クリアステージ数: " + score, appInstance.width / 2, 150);
-    appInstance.text("クリックでホームに戻る", appInstance.width / 2, 250);
+    resultBackButton.display();
   }
 
   void displayRankingBackButton() {
@@ -73,15 +75,16 @@ class UIManager {
           break;
         }
       }
-    } else if (currentScreen.equals("manual") || currentScreen.equals("ranking") || currentScreen.equals("result")) {
+    } else if (currentScreen.equals("manual") || currentScreen.equals("ranking")) {
       if (backButton != null && backButton.isClicked(x, y)) {
         currentScreen = "home";
         setupHomeButtons();
         backButton = null;
-      } else if (currentScreen.equals("result")) {
+      }
+    } else if (currentScreen.equals("result")) {
+      if (resultBackButton.isClicked(x, y)) {
         currentScreen = "home";
         setupHomeButtons();
-        backButton = null;
       }
     }
   }
