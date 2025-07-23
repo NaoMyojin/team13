@@ -98,7 +98,7 @@ void drawGameScreen() {
 
   fill(255);
   rect(1000, 500, 200, 180);
-  fill(255, 255, 0);
+  fill(255, 0, 0);
   textAlign(CENTER, CENTER);
   textSize(32);
   text("TARGET!!", 1100, 520);
