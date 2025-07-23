@@ -1,52 +1,63 @@
 class UIManager {
   ArrayList<Button> buttons;
+  Button backButton;
   GameManager gm;
-  PApplet appInstance; // app.pdeのインスタンスを受け取るための変数
+  PApplet appInstance;
 
   UIManager(GameManager gm, PApplet appInstance) {
     this.gm = gm;
-    this.appInstance = appInstance; // インスタンスを保存
+    this.appInstance = appInstance;
     buttons = new ArrayList<Button>();
     setupHomeButtons();
   }
 
-  // ホーム画面のボタンを設定
   void setupHomeButtons() {
     buttons.clear();
-    buttons.add(new Button("ゲームスタート", width / 2 - 75, height / 2 - 30, 150, 40, "game"));
-    buttons.add(new Button("マニュアル", width / 2 - 75, height / 2 + 30, 150, 40, "manual"));
-    buttons.add(new Button("ランキング", width / 2 - 75, height / 2 + 90, 150, 40, "ranking"));
+    buttons.add(new Button("ゲームスタート", appInstance.width / 2 - 75, appInstance.height / 2 - 30, 150, 40, "game"));
+    buttons.add(new Button("マニュアル", appInstance.width / 2 - 75, appInstance.height / 2 + 30, 150, 40, "manual"));
+    buttons.add(new Button("ランキング", appInstance.width / 2 - 75, appInstance.height / 2 + 90, 150, 40, "ranking"));
+    backButton = null;
+  }
+
+  void setupBackButton() {
+    backButton = new Button("ホームに戻る", appInstance.width / 2 - 75, appInstance.height - 100, 150, 40, "home");
   }
 
   void displayHome() {
-    background(30, 120, 200);
-    fill(255);
-    textSize(32);
-    textAlign(CENTER);
-    text("あなたはどこ？", width / 2, 100);
-
+    appInstance.background(30, 120, 200);
+    appInstance.fill(255);
+    appInstance.textSize(32);
+    appInstance.textAlign(CENTER);
+    appInstance.text("あなたはどこ？", appInstance.width / 2, 100);
     for (Button b : buttons) {
       b.display();
     }
   }
 
   void displayManual() {
-    background(60, 60, 60);
-    fill(255);
-    textSize(20);
-    textAlign(LEFT);
-    text("【マニュアル】", 50, 80);
-    text("・制限時間内に指定された画像を見つけてクリック\n・制限時間は1ステージ7秒\n・画像が動くステージと動かないステージがある\n・3回ミスでゲームオーバー\n・ステージクリアでライフ1回復\n\n←クリックでホームに戻る", 50, 120);
+    appInstance.background(60, 60, 60);
+    appInstance.fill(255);
+    appInstance.textSize(20);
+    appInstance.textAlign(LEFT);
+    appInstance.text("【マニュアル】", 50, 80);
+    appInstance.text("・制限時間内に指定された画像を見つけてクリック\n・制限時間は1ステージ7秒\n・画像が動くステージと動かないステージがある\n・3回ミスでゲームオーバー\n・ステージクリアでライフ1回復\n", 50, 120);
+    if (backButton == null) setupBackButton();
+    backButton.display();
   }
 
   void displayResult(int score) {
-    background(0);
-    fill(255);
-    textSize(28);
-    textAlign(CENTER);
-    text("ゲーム終了！", width / 2, 100);
-    text("クリアステージ数: " + score, width / 2, 150);
-    text("クリックでホームに戻る", width / 2, 250);
+    appInstance.background(0);
+    appInstance.fill(255);
+    appInstance.textSize(28);
+    appInstance.textAlign(CENTER);
+    appInstance.text("ゲーム終了！", appInstance.width / 2, 100);
+    appInstance.text("クリアステージ数: " + score, appInstance.width / 2, 150);
+    appInstance.text("クリックでホームに戻る", appInstance.width / 2, 250);
+  }
+
+  void displayRankingBackButton() {
+    if (backButton == null) setupBackButton();
+    backButton.display();
   }
 
   void handleClick(float x, float y) {
@@ -56,13 +67,22 @@ class UIManager {
           currentScreen = b.nextScreen;
           if (currentScreen.equals("game")) {
             gm.startGame();
-            timer.start();  // タイマーも開始（必要に応じて）
+            timer.start();
           }
+          backButton = null;
+          break;
         }
       }
     } else if (currentScreen.equals("manual") || currentScreen.equals("ranking") || currentScreen.equals("result")) {
-      currentScreen = "home";
-      setupHomeButtons();
+      if (backButton != null && backButton.isClicked(x, y)) {
+        currentScreen = "home";
+        setupHomeButtons();
+        backButton = null;
+      } else if (currentScreen.equals("result")) {
+        currentScreen = "home";
+        setupHomeButtons();
+        backButton = null;
+      }
     }
   }
 }
