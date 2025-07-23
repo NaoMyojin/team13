@@ -110,7 +110,7 @@ void drawGameScreen() {
   fill(255, 255, 0);
   textSize(28);
   textAlign(LEFT, CENTER);
-  text("クリアステージ数: " + gm.score, 20, height - 40);
+  text("クリアステージ数: " + gm.score, 20, height - 80);
 }
 
 void changeScreen(String screenName) {
