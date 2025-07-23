@@ -49,6 +49,7 @@ void draw() {
     ui.displayManual();
   } else if (currentScreen.equals("ranking")) {
     ranking.displayRanking(width / 2 - 100, 150);
+    ui.displayRankingBackButton();
   }
 }
 
