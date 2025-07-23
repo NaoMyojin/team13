@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 class RankingManager {
   ArrayList<RankingEntry> rankingList;
   String rankingFile = "ranking.txt";
@@ -47,7 +50,7 @@ class RankingManager {
   void displayRanking(float x, float y) {
     fill(255);
     textSize(20);
-    text(" ランキング", x, y - 30);
+    text("ランキング", x, y - 30);
 
     textSize(16);
     for (int i = 0; i < min(rankingList.size(), maxEntries); i++) {
@@ -58,12 +61,12 @@ class RankingManager {
 
   // スコア順に降順ソート
   void sortRanking() {
-    rankingList.sort(new Comparator<RankingEntry>() {
-      int compare(RankingEntry a, RankingEntry b) {
-        return b.score - a.score;
-      }
-    });
-  }
+  Collections.sort(rankingList, new Comparator<RankingEntry>() {
+    public int compare(RankingEntry a, RankingEntry b) {
+      return b.score - a.score;
+    }
+  });
+}
 
   // 内部用ランキングエントリクラス
   class RankingEntry {
