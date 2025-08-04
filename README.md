@@ -22,8 +22,7 @@
 ## ホーム画面について
 起動すると、以下のホーム画面が表示されます。
 
-![ホーム画面](screen/home.png)
-<img src="screen/home.png" alt="スクリーンショット" width="300">
+<img src="screen/home.png" alt="スクリーンショット" width="500">
 
 以下は、ボタン名とその説明です。
 
